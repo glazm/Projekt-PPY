@@ -19,6 +19,13 @@ def tranxlsx(file):
 #    f = f[f['Publisher'].str.contains('Penguin Random House|Random House',case=False)]
     f = f[f.eval("Name=='Stephen' & Surname=='King' | Publisher.str.contains('Penguin Random House|Random House',case=False)")]
     print(f.head(10))
+#    for col in f.columns:
+#        for va in f.
+#        f = f.dropna(subset=[col], inplace=True)
+    print(f.head(10))
+    for col in f.columns:
+        f = f.dropna(axis=0,subset=[col], inplace=False)
+    print(f.head(10))
 def removeinternal(file):
     for col in file.columns:
         if 'internal' in col:
