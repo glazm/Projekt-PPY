@@ -13,8 +13,10 @@ def tranxlsx(file):
             f = f.drop(col, axis=1)
 #    removeinternal(f)
     print(f.columns)
-#    f = f[['Name','Surname']].str.capitalize()
-#    print(f.head(10))
+    f['Name'] = f['Name'].str.capitalize()
+    f['Surname'] = f['Surname'].str.capitalize()
+    print(f.head(10))
+    
 
 def removeinternal(file):
     for col in file.columns:
