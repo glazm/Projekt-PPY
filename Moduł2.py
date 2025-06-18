@@ -16,8 +16,9 @@ def tranxlsx(file):
     f['Name'] = f['Name'].str.capitalize()
     f['Surname'] = f['Surname'].str.capitalize()
     print(f.head(10))
-    
-
+#    f = f[f['Publisher'].str.contains('Penguin Random House|Random House',case=False)]
+    f = f[f.eval("Name=='Stephen' & Surname=='King' | Publisher.str.contains('Penguin Random House|Random House',case=False)")]
+    print(f.head(10))
 def removeinternal(file):
     for col in file.columns:
         if 'internal' in col:
