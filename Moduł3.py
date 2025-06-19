@@ -28,6 +28,7 @@ def req(file):
         t =row["Title"].replace(' ','%20')
         firstName =row["Name"].replace(' ','%20')
         surname =row["Surname"].replace(' ','%20')
+        authorID =""
 #        t='the+lord+of+the+rings'
         urldata = dict()
         try:
@@ -42,17 +43,27 @@ def req(file):
 #       urldata = urldata[]
             print(urldata[0])
         except:
-            print("Podane złe dane")
+            print("No such data")
+        print()
 
-    with urllib.request.urlopen("https://openlibrary.org/search.json?title=the+lord+of+the+rings&author=J.R.R.%20Tolkien&fields=author_key") as url:
-        data = json.load(url)
-        urldata = dict(data)
-    print((list((urldata['docs'][0]).values())[0])[0])
-    with urllib.request.urlopen("https://openlibrary.org/authors/OL26320A.json") as url:
-        data = json.load(url)
-        urldata = dict(data)
-    print(urldata['bio'])
+        try:
+            with urllib.request.urlopen(f'https://openlibrary.org/search.json?title={t}&author={firstName}%20{surname}&fields=author_key') as url:
+                data = json.load(url)
+                urldata = dict(data)
+            print((list((urldata['docs'][0]).values())[0])[0])
+            authorID = (list((urldata['docs'][0]).values())[0])[0]
+        except:
+            print("No such data")
+        print()
+        try:
+            with urllib.request.urlopen(f'https://openlibrary.org/authors/{authorID}.json') as url:
+                data = json.load(url)
+                urldata = dict(data)
+            print(urldata['bio'])
 #    print(data['docs'])
+        except:
+            print("No such data")
+        print()
     print()
     print("Moduł 3")
     print(file)
