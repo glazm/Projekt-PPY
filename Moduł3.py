@@ -77,10 +77,11 @@ def req(file):
     print()
     print("Moduł 3")
     print(file)
+    print()
 
 
     for index,row in file.iterrows():
-        if file.at[index,'Author BIO'] != nullcontext:
+        if file.at[index,'Author BIO'] != nullcontext and file.at[index,'Author BIO'] != '':
             print(file.at[index,'Author BIO'])
 
 #    print(resp.status_code)
