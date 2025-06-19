@@ -30,7 +30,7 @@ def req(file):
         t =row["Title"].replace(' ','%20')
         firstName =row["Name"].replace(' ','%20')
         surname =row["Surname"].replace(' ','%20')
-        authorID =""
+#        authorID =""
 #        file['Publisher'] = row['Publisher']
 #        t='the+lord+of+the+rings'
         urldata = dict()
