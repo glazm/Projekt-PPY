@@ -11,14 +11,19 @@ def req(file):
     urldata = dict()
     with urllib.request.urlopen("https://openlibrary.org/search.json?title=the+lord+of+the+rings&author=J.R.R.%20Tolkien&fields=title,publisher,author_name") as url:
         data = json.load(url)
+#        print(data)
         urldata = dict(data)
-    print(urldata['docs'])
-
+#        print(urldata)
+#    print(urldata['docs'])
+    urldata = urldata['docs']
+    urldata = list(urldata[0].values())[1]
+#    urldata = urldata[]
+    print(urldata[0])
 
     with urllib.request.urlopen("https://openlibrary.org/search.json?title=the+lord+of+the+rings&author=J.R.R.%20Tolkien&fields=author_key") as url:
         data = json.load(url)
         urldata = dict(data)
-    print(urldata['docs'])
+    print((list((urldata['docs'][0]).values())[0])[0])
     with urllib.request.urlopen("https://openlibrary.org/authors/OL26320A.json") as url:
         data = json.load(url)
         urldata = dict(data)
