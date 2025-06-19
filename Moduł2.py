@@ -1,5 +1,8 @@
 import pandas as pd
 
+import Moduł3
+
+
 def trancsv(file):
     f = pd.read_csv(f'file/{file}')
 #    print(f.head(10))
@@ -16,6 +19,7 @@ def trancsv(file):
     for col in f.columns:
         f = f.dropna(axis=0,subset=[col], inplace=False)
     print(f.head(10))
+    Moduł3.req(f)
 def tranxlsx(file):
     f = pd.read_excel(f'file/{file}')
 #    print(f.head(10))
@@ -32,6 +36,7 @@ def tranxlsx(file):
     for col in f.columns:
         f = f.dropna(axis=0,subset=[col], inplace=False)
     print(f.head(10))
+    Moduł3.req(f)
 def removeinternal(file):
     for col in file.columns:
         if 'internal' in col:
