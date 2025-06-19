@@ -4,9 +4,13 @@ from contextlib import nullcontext
 import pandas as pd
 import requests as r
 import urllib.request
+
+import Moduł4
+
+
 #import urllib.parse
 
-def req(file):
+def req(file) -> pd.DataFrame:
 #    resp = r.get("https://openlibrary.org/search.json?title=the+lord+of+the+rings&author=J.R.R.%20Tolkien&fields=author_key/").json()
 #    print(file.head(10))
 #    t=[]
@@ -80,9 +84,12 @@ def req(file):
     print()
 
 
-    for index,row in file.iterrows():
-        if file.at[index,'Author BIO'] != nullcontext and file.at[index,'Author BIO'] != '':
-            print(file.at[index,'Author BIO'])
+#    for index,row in file.iterrows():
+#        if file.at[index,'Author BIO'] != nullcontext and file.at[index,'Author BIO'] != '':
+#            print(file.at[index,'Author BIO'])
 
+    print(type(file))
+    Moduł4.l(file)
+    return file
 #    print(resp.status_code)
  #   print(resp.content)
