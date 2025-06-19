@@ -1,4 +1,5 @@
 import json
+from contextlib import nullcontext
 
 import pandas as pd
 import requests as r
@@ -25,10 +26,12 @@ def req(file):
         print(row["Title"])
         print(row["Name"])
         print(row["Surname"])
+        print(row["Publisher"])
         t =row["Title"].replace(' ','%20')
         firstName =row["Name"].replace(' ','%20')
         surname =row["Surname"].replace(' ','%20')
         authorID =""
+#        file['Publisher'] = row['Publisher']
 #        t='the+lord+of+the+rings'
         urldata = dict()
         try:
@@ -42,7 +45,12 @@ def req(file):
             urldata = list(urldata[0].values())[1]
 #       urldata = urldata[]
             print(urldata[0])
+#            row['Publisher'] = urldata[0]
+#            row['Publisher'] = urldata[0]
+#            file['Publisher'] = row['Publisher']
+            file.at[index,'Publisher'] = urldata[0]
         except:
+#            file['Publisher'] = file['Publisher']
             print("No such data")
         print()
 
@@ -60,13 +68,20 @@ def req(file):
                 data = json.load(url)
                 urldata = dict(data)
             print(urldata['bio'])
+            file.at[index, 'Author BIO'] = urldata['bio']
 #    print(data['docs'])
         except:
+            file.at[index, 'Author BIO'] = ''
             print("No such data")
         print()
     print()
     print("Moduł 3")
     print(file)
+
+
+    for index,row in file.iterrows():
+        if file.at[index,'Author BIO'] != nullcontext:
+            print(file.at[index,'Author BIO'])
 
 #    print(resp.status_code)
  #   print(resp.content)
