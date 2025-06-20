@@ -21,7 +21,7 @@ def hello():
 
 @app.route('/booksByAuthor')
 def booksByAuthor():
-    query = request.args.get('author')
+    query = str(request.args.get('author'))
     print("===============")
     print('Moduł4')
     print("===============")
@@ -29,17 +29,20 @@ def booksByAuthor():
     print(ff)
     print(ff['Name'])
     print(ff['Surname'])
-    tab = query.split(' ')
-    print(tab)
+    #tab = query.split(' ')
+
+   # stri = tab[0]
+    #print(tab)
+    print(query)
     f=[]
     for index, row in ff.iterrows():
-        if row['Surname'] in tab and row['Name'] in tab :
+        if row['Surname'].casefold() in query.casefold() and row['Name'].casefold() in query.casefold() :
             print(row['Title'])
             f.append(row['Title'])
     print(f)
     t = ', '.join(f)
 #    display(ppp.to_string())
-    return f'Author: {t}'
+    return f'Books written by author {query}: {t}'
 #    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
 @app.route('/loadedBooks')
 def loadedBooks():
@@ -57,7 +60,7 @@ def loadedBooks():
     print(f)
     t = ', '.join(f)
 #    display(ppp.to_string())
-    return f'Author: {t}'
+    return f'Loaded books: {t}'
 #    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
 @app.route('/wordInTitle')
 def wordInTitle():
@@ -79,7 +82,7 @@ def wordInTitle():
     print(f)
     t = ', '.join(f)
 #    display(ppp.to_string())
-    return f'Author: {t}'
+    return f'Titles containing given word "{query}": {t}'
 #    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
 
 @app.route('/user')

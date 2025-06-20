@@ -10,8 +10,8 @@ def tran(file) -> pd.DataFrame:
 #    elif file.endswith('.xlsx'):
 #        f = pd.read_excel(f'file/{file}')
 #    f = pd.read_csv(f'file/{file}')
-#    print(f.head(10))
-#    print(f.columns)
+#    print(file.head(10))
+#    print(file.columns)
     for col in file.columns:
         if 'internal' in col:
             file = file.drop(col, axis=1)
