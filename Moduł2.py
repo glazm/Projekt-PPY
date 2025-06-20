@@ -23,7 +23,11 @@ def tran(file) -> pd.DataFrame:
 #    print(f.head(10))
     for col in file.columns:
         file = file.dropna(axis=0,subset=[col], inplace=False)
-    print(file.head(10))
+#    print(file.head(10))
+    file.to_pickle('workingFiles/file.json')
+    print("After pickling Modul2")
+    print(pd.read_pickle('workingFiles/file.json'))
+    print("Pickling read Modul2")
 #    Moduł3.req(file)
     print(type(file))
     return file

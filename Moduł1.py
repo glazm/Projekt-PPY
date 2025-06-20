@@ -33,9 +33,9 @@ for file in os.listdir('file'):
     else:
         os.remove(f'file/{file}')
     f.to_pickle('workingFiles/file.json')
-    print("After pickling")
+    print("After pickling Modul1")
     print(pd.read_pickle('workingFiles/file.json'))
-    print("Pickling read")
+    print("Pickling read Modul1")
     Moduł2.tran(f)
 
 def prep() -> pd.DataFrame:
@@ -49,14 +49,26 @@ def prep() -> pd.DataFrame:
         if file.endswith('.csv'):
             fi = pd.read_csv(f'file/{file}')
 #            Moduł2.trancsv(file)
+            fi.to_pickle('workingFiles/file.json')
+            print("After pickling Modul1")
+            print(pd.read_pickle('workingFiles/file.json'))
+            print("Pickling read Modul1")
             return fi
         elif file.endswith('.xlsx'):
             fi = pd.read_excel(f'file/{file}')
 #            Moduł2.tranxlsx(file)
+            fi.to_pickle('workingFiles/file.json')
+            print("After pickling Modul1")
+            print(pd.read_pickle('workingFiles/file.json'))
+            print("Pickling read Modul1")
             return fi
         else:
             os.remove(f'file/{file}')
             return None
+#        f.to_pickle('workingFiles/file.json')
+#        print("After pickling Modul1")
+#        print(pd.read_pickle('workingFiles/file.json'))
+#        print("Pickling read Modul1")
     return None
 
 

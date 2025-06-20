@@ -24,13 +24,14 @@ def req(file) -> pd.DataFrame:
 #        elif 'Surname' in col:
 #            surname = file[col]
 
-
+    print("Before pickling Modul3")
+    print(pd.read_pickle('workingFiles/file.json'))
 #    print(title)
     for index,row in file.iterrows():
-        print(row["Title"])
-        print(row["Name"])
-        print(row["Surname"])
-        print(row["Publisher"])
+#        print(row["Title"])
+#        print(row["Name"])
+#        print(row["Surname"])
+#        print(row["Publisher"])
         t =row["Title"].replace(' ','%20')
         firstName =row["Name"].replace(' ','%20')
         surname =row["Surname"].replace(' ','%20')
@@ -56,17 +57,17 @@ def req(file) -> pd.DataFrame:
         except:
 #            file['Publisher'] = file['Publisher']
             print("No such data")
-        print()
+#        print()
 
         try:
             with urllib.request.urlopen(f'https://openlibrary.org/search.json?title={t}&author={firstName}%20{surname}&fields=author_key') as url:
                 data = json.load(url)
                 urldata = dict(data)
-            print((list((urldata['docs'][0]).values())[0])[0])
+#            print((list((urldata['docs'][0]).values())[0])[0])
             authorID = (list((urldata['docs'][0]).values())[0])[0]
         except:
             print("No such data")
-        print()
+#        print()
         try:
             with urllib.request.urlopen(f'https://openlibrary.org/authors/{authorID}.json') as url:
                 data = json.load(url)
@@ -77,18 +78,22 @@ def req(file) -> pd.DataFrame:
         except:
             file.at[index, 'Author BIO'] = ''
             print("No such data")
-        print()
-    print()
-    print("Moduł 3")
-    print(file)
-    print()
+#        print()
+#    print()
+#    print("Moduł 3")
+#    print(file)
+#    print()
 
 
 #    for index,row in file.iterrows():
 #        if file.at[index,'Author BIO'] != nullcontext and file.at[index,'Author BIO'] != '':
 #            print(file.at[index,'Author BIO'])
 
-    print(type(file))
+#    print(type(file))
+    file.to_pickle('workingFiles/file.json')
+    print("After pickling Modul3")
+    print(pd.read_pickle('workingFiles/file.json'))
+    print("Pickling read Modul3")
     Moduł4.l(file)
     return file
 #    print(resp.status_code)

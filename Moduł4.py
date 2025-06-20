@@ -29,6 +29,8 @@ def booksByAuthor():
     print(ff)
     print(ff['Name'])
     print(ff['Surname'])
+#    print(ff['Publisher'])
+#    print(ff['Author BIO'])
     #tab = query.split(' ')
 
    # stri = tab[0]
