@@ -1,4 +1,5 @@
 import json
+import os
 from contextlib import nullcontext
 
 import pandas as pd
@@ -9,6 +10,20 @@ import Moduł4
 
 
 #import urllib.parse
+
+
+with open("config.json") as config:
+    conf = json.load(config)
+    print("Loaded config.json")
+
+dropFolder = os.listdir(f'{conf["drop_folder"]}')
+dropFolderPath = f'{conf["drop_folder"]}'
+acceptableFormats = conf["acceptable_formats"]
+cacheFile = f'{conf["extent"]}'
+publisherUrl = f'{conf["getPublisherUrl"]}'
+authorIdUrl = f'{conf["getAuthorIdUrl"]}'
+authorBioUrl = f'{conf["getAuthorBioUrl"]}'
+
 
 def req(file) -> pd.DataFrame:
 #    resp = r.get("https://openlibrary.org/search.json?title=the+lord+of+the+rings&author=J.R.R.%20Tolkien&fields=author_key/").json()
@@ -25,7 +40,7 @@ def req(file) -> pd.DataFrame:
 #            surname = file[col]
 
     print("Before pickling Modul3")
-    print(pd.read_pickle('workingFiles/file.json'))
+    print(pd.read_pickle(cacheFile))
 #    print(title)
     for index,row in file.iterrows():
 #        print(row["Title"])
@@ -40,7 +55,7 @@ def req(file) -> pd.DataFrame:
 #        t='the+lord+of+the+rings'
         urldata = dict()
         try:
-            with urllib.request.urlopen(f'https://openlibrary.org/search.json?title={t}&author={firstName}%20{surname}&fields=title,publisher,author_name') as url:
+            with urllib.request.urlopen(publisherUrl) as url:
                 data = json.load(url)
 #               print(data)
                 urldata = dict(data)
@@ -60,7 +75,7 @@ def req(file) -> pd.DataFrame:
 #        print()
 
         try:
-            with urllib.request.urlopen(f'https://openlibrary.org/search.json?title={t}&author={firstName}%20{surname}&fields=author_key') as url:
+            with urllib.request.urlopen(authorIdUrl) as url:
                 data = json.load(url)
                 urldata = dict(data)
 #            print((list((urldata['docs'][0]).values())[0])[0])
@@ -69,7 +84,7 @@ def req(file) -> pd.DataFrame:
             print("No such data")
 #        print()
         try:
-            with urllib.request.urlopen(f'https://openlibrary.org/authors/{authorID}.json') as url:
+            with urllib.request.urlopen(authorBioUrl) as url:
                 data = json.load(url)
                 urldata = dict(data)
             print(urldata['bio'])
@@ -90,11 +105,11 @@ def req(file) -> pd.DataFrame:
 #            print(file.at[index,'Author BIO'])
 
 #    print(type(file))
-    file.to_pickle('workingFiles/file.json')
+    file.to_pickle(cacheFile)
     print("After pickling Modul3")
-    print(pd.read_pickle('workingFiles/file.json'))
+    print(pd.read_pickle(cacheFile))
     print("Pickling read Modul3")
-    Moduł4.l(file)
+#    Moduł4.l(file) #comment if you want to test this modul
     return file
 #    print(resp.status_code)
  #   print(resp.content)

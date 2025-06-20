@@ -1,20 +1,31 @@
-from flask import Flask
-from flask import render_template
-
-
+import json
+import os
 import pandas as pd
 import Moduł1
 import Moduł2
 import Moduł3
-#from Moduł3 import
+from flask import Flask
+from flask import request
 
+with open("config.json") as config:
+    conf = json.load(config)
+    print("Loaded config.json")
 
-ppp=pd.DataFrame
-app = Flask(__name__)  # Flask constructor
+dropFolder = os.listdir(f'{conf["drop_folder"]}')
+dropFolderPath = f'{conf["drop_folder"]}'
+acceptableFormats = conf["acceptable_formats"]
+cacheFile = f'{conf["extent"]}'
 
+Moduł1.prep()
+Moduł2.tran(pd.read_pickle(cacheFile))
+Moduł3.req(pd.read_pickle(cacheFile))
 
-# A decorator used to tell the application
-# which URL is associated function
+load = Moduł1.prep()
+t = Moduł2.tran(pd.read_pickle(cacheFile))
+api = Moduł3.req(pd.read_pickle(cacheFile))
+
+app = Flask(__name__)
+
 @app.route('/')
 def hello():
     return 'HELLO'
@@ -29,12 +40,6 @@ def booksByAuthor():
     print(ff)
     print(ff['Name'])
     print(ff['Surname'])
-#    print(ff['Publisher'])
-#    print(ff['Author BIO'])
-    #tab = query.split(' ')
-
-   # stri = tab[0]
-    #print(tab)
     print(query)
     f=[]
     for index, row in ff.iterrows():
@@ -43,9 +48,8 @@ def booksByAuthor():
             f.append(row['Title'])
     print(f)
     t = ', '.join(f)
-#    display(ppp.to_string())
     return f'Books written by author {query}: {t}'
-#    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
+
 @app.route('/loadedBooks')
 def loadedBooks():
     print("===============")
@@ -61,9 +65,8 @@ def loadedBooks():
         f.append(row['Title'])
     print(f)
     t = ', '.join(f)
-#    display(ppp.to_string())
     return f'Loaded books: {t}'
-#    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
+
 @app.route('/wordInTitle')
 def wordInTitle():
     query =str(request.args.get('word'))
@@ -74,7 +77,6 @@ def wordInTitle():
     print(ff)
     print(ff['Name'])
     print(ff['Surname'])
-#    stri = query.
     f=[]
     for index, row in ff.iterrows():
         print(row['Title']+"<->"+query)
@@ -83,41 +85,8 @@ def wordInTitle():
             f.append(row['Title'])
     print(f)
     t = ', '.join(f)
-#    display(ppp.to_string())
     return f'Titles containing given word "{query}": {t}'
-#    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
 
-#@app.route('/authorBio')
-#def authorBio():
-#    query =str(request.args.get('author'))
-#    print("===============")
-#    print('Moduł4')
-#    print("===============")
-#    ff =Moduł3.req(Moduł2.tran(Moduł1.prep()))
-#    print(ff)
-#    print(ff['Name'])
-#    print(ff['Surname'])
-#    stri = query.
-#    f=[]
-#    i = int(0)
-#    for index, row in ff.iterrows():
-#        print(row['Title']+"<->"+query)
-#        if i == 0 and row['Surname'].casefold() in query.casefold() and row['Name'].casefold() in query.casefold() :
-#            print(row['Title'])
-#            f.append(row['Title'])
-#            i=i+1
-#            return f'Author "{query}" bio: {row["Author BIO"]}'
-#    print(f)
-#    t = ', '.join(f)
-#    display(ppp.to_string())
-#    return f'Titles containing given word "{query}": {t}'
-#    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
-
-@app.route('/user')
-def user():
-    return render_template('user.html', name='Anna')
-
-from flask import request
 @app.route('/search')
 def search():
     query = request.args.get('q')
@@ -125,5 +94,3 @@ def search():
 if __name__ == '__main__':
     app.run(debug=True)
 
-def l(file):
-    ppp = file

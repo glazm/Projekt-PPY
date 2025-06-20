@@ -1,7 +1,18 @@
 import pandas as pd
-
+import json
+import os
 import Moduł3
 
+with open("config.json") as config:
+    conf = json.load(config)
+    print("Loaded config.json")
+
+dropFolder = os.listdir(f'{conf["drop_folder"]}')
+dropFolderPath = f'{conf["drop_folder"]}'
+acceptableFormats = conf["acceptable_formats"]
+cacheFile = f'{conf["extent"]}'
+
+##tran(cacheFile)
 
 def tran(file) -> pd.DataFrame:
 #    f=[]
@@ -24,51 +35,51 @@ def tran(file) -> pd.DataFrame:
     for col in file.columns:
         file = file.dropna(axis=0,subset=[col], inplace=False)
 #    print(file.head(10))
-    file.to_pickle('workingFiles/file.json')
+    file.to_pickle(cacheFile)
     print("After pickling Modul2")
-    print(pd.read_pickle('workingFiles/file.json'))
+    print(pd.read_pickle(cacheFile))
     print("Pickling read Modul2")
-#    Moduł3.req(file)
+    Moduł3.req(file) #comment if you want to test this modul
     print(type(file))
     return file
-def trancsv(file):
-    f = pd.read_csv(f'file/{file}')
+#def trancsv(file):
+#    f = pd.read_csv(f'file/{file}')
+##    print(f.head(10))
+##    print(f.columns)
+#    for col in f.columns:
+#        if 'internal' in col:
+#            f = f.drop(col, axis=1)
+##    print(f.columns)
+#    f['Name'] = f['Name'].str.capitalize()
+#    f['Surname'] = f['Surname'].str.capitalize()
+##    print(f.head(10))
+#    f = f[f.eval("Name=='Stephen' & Surname=='King' | Publisher.str.contains('Penguin Random House|Random House',case=False)")]
+##    print(f.head(10))
+#    for col in f.columns:
+#        f = f.dropna(axis=0,subset=[col], inplace=False)
 #    print(f.head(10))
-#    print(f.columns)
-    for col in f.columns:
-        if 'internal' in col:
-            f = f.drop(col, axis=1)
-#    print(f.columns)
-    f['Name'] = f['Name'].str.capitalize()
-    f['Surname'] = f['Surname'].str.capitalize()
+##    Moduł3.req(f)
+#    return f
+#def tranxlsx(file):
+#    f = pd.read_excel(f'file/{file}')
+##    print(f.head(10))
+##    print(f.columns)
+#    for col in f.columns:
+#        if 'internal' in col:
+#            f = f.drop(col, axis=1)
+##    print(f.columns)
+#    f['Name'] = f['Name'].str.capitalize()
+#    f['Surname'] = f['Surname'].str.capitalize()
+##    print(f.head(10))
+#    f = f[f.eval("Name=='Stephen' & Surname=='King' | Publisher.str.contains('Penguin Random House|Random House',case=False)")]
+##    print(f.head(10))
+#    for col in f.columns:
+#        f = f.dropna(axis=0,subset=[col], inplace=False)
 #    print(f.head(10))
-    f = f[f.eval("Name=='Stephen' & Surname=='King' | Publisher.str.contains('Penguin Random House|Random House',case=False)")]
-#    print(f.head(10))
-    for col in f.columns:
-        f = f.dropna(axis=0,subset=[col], inplace=False)
-    print(f.head(10))
-#    Moduł3.req(f)
-    return f
-def tranxlsx(file):
-    f = pd.read_excel(f'file/{file}')
-#    print(f.head(10))
-#    print(f.columns)
-    for col in f.columns:
-        if 'internal' in col:
-            f = f.drop(col, axis=1)
-#    print(f.columns)
-    f['Name'] = f['Name'].str.capitalize()
-    f['Surname'] = f['Surname'].str.capitalize()
-#    print(f.head(10))
-    f = f[f.eval("Name=='Stephen' & Surname=='King' | Publisher.str.contains('Penguin Random House|Random House',case=False)")]
-#    print(f.head(10))
-    for col in f.columns:
-        f = f.dropna(axis=0,subset=[col], inplace=False)
-    print(f.head(10))
-#    Moduł3.req(f)
-    return f
-def removeinternal(file):
-    for col in file.columns:
-        if 'internal' in col:
-            file = file.drop(col, axis=1)
-    # print(file.columns)
+##    Moduł3.req(f)
+#    return f
+#def removeinternal(file):
+#    for col in file.columns:
+#        if 'internal' in col:
+#            file = file.drop(col, axis=1)
+#    # print(file.columns)
