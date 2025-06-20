@@ -19,7 +19,7 @@ app = Flask(__name__)  # Flask constructor
 def hello():
     return 'HELLO'
 
-@app.route('/books')
+@app.route('/booksByAuthor')
 def booksByAuthor():
     query = request.args.get('author')
     print("===============")
@@ -34,6 +34,46 @@ def booksByAuthor():
     f=[]
     for index, row in ff.iterrows():
         if row['Surname'] in tab and row['Name'] in tab :
+            print(row['Title'])
+            f.append(row['Title'])
+    print(f)
+    t = ', '.join(f)
+#    display(ppp.to_string())
+    return f'Author: {t}'
+#    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
+@app.route('/loadedBooks')
+def loadedBooks():
+    print("===============")
+    print('Moduł4')
+    print("===============")
+    ff =Moduł3.req(Moduł2.tran(Moduł1.prep()))
+    print(ff)
+    print(ff['Name'])
+    print(ff['Surname'])
+    f=[]
+    for index, row in ff.iterrows():
+        print(row['Title'])
+        f.append(row['Title'])
+    print(f)
+    t = ', '.join(f)
+#    display(ppp.to_string())
+    return f'Author: {t}'
+#    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
+@app.route('/wordInTitle')
+def wordInTitle():
+    query =str(request.args.get('word'))
+    print("===============")
+    print('Moduł4')
+    print("===============")
+    ff =Moduł3.req(Moduł2.tran(Moduł1.prep()))
+    print(ff)
+    print(ff['Name'])
+    print(ff['Surname'])
+#    stri = query.
+    f=[]
+    for index, row in ff.iterrows():
+        print(row['Title']+"<->"+query)
+        if query.casefold() in row['Title'].casefold():
             print(row['Title'])
             f.append(row['Title'])
     print(f)
