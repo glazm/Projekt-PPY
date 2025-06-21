@@ -1,12 +1,27 @@
+import json
+import os
+
 from flask import Flask
 from flask import render_template
 
 
 import pandas as pd
-import Moduł1
-import Moduł2
-import Moduł3
+#import Moduł1
+#import Moduł2
+#import Moduł3
 #from Moduł3 import
+
+with open("config.json") as config:
+    conf = json.load(config)
+    print("Loaded config.json")
+
+dropFolder = os.listdir(f'{conf["drop_folder"]}')
+dropFolderPath = f'{conf["drop_folder"]}'
+acceptableFormats = conf["acceptable_formats"]
+cacheFile = f'{conf["extent"]}'
+publisherUrl = f'{conf["getPublisherUrl"]}'
+authorIdUrl = f'{conf["getAuthorIdUrl"]}'
+authorBioUrl = f'{conf["getAuthorBioUrl"]}'
 
 
 ppp=pd.DataFrame
@@ -25,7 +40,8 @@ def booksByAuthor():
     print("===============")
     print('Moduł4')
     print("===============")
-    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
+#    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
+    ff =pd.read_pickle(cacheFile)
     print(ff)
     print(ff['Name'])
     print(ff['Surname'])
@@ -51,7 +67,8 @@ def loadedBooks():
     print("===============")
     print('Moduł4')
     print("===============")
-    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
+#    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
+    ff = pd.read_pickle(cacheFile)
     print(ff)
     print(ff['Name'])
     print(ff['Surname'])
@@ -70,7 +87,8 @@ def wordInTitle():
     print("===============")
     print('Moduł4')
     print("===============")
-    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
+#    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
+    ff = pd.read_pickle(cacheFile)
     print(ff)
     print(ff['Name'])
     print(ff['Surname'])
