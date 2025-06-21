@@ -25,7 +25,7 @@ authorIdUrl = f'{conf["getAuthorIdUrl"]}'
 authorBioUrl = f'{conf["getAuthorBioUrl"]}'
 
 
-def req(file) -> pd.DataFrame:
+def additional_data(file) -> pd.DataFrame:
 #    resp = r.get("https://openlibrary.org/search.json?title=the+lord+of+the+rings&author=J.R.R.%20Tolkien&fields=author_key/").json()
 #    print(file.head(10))
 #    t=[]

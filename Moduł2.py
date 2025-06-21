@@ -14,7 +14,7 @@ cacheFile = f'{conf["extent"]}'
 
 ##tran(cacheFile)
 
-def tran(file) -> pd.DataFrame:
+def transform(file) -> pd.DataFrame:
 #    f=[]
 #    if file.endswith('.csv'):
 #        f = pd.read_csv(f'file/{file}')
@@ -39,7 +39,7 @@ def tran(file) -> pd.DataFrame:
     print("After pickling Modul2")
     print(pd.read_pickle(cacheFile))
     print("Pickling read Modul2")
-    Moduł3.req(file) #comment if you want to test this modul
+    Moduł3.additional_data(file) #comment if you want to test this modul
     print(type(file))
     return file
 #def trancsv(file):

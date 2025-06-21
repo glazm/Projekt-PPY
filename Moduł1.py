@@ -41,7 +41,7 @@ for file in dropFolder: #os.listdir('file'):
         print("After pickling Modul1")
         print(pd.read_pickle(cacheFile))
         print("Pickling read Modul1")
-        Moduł2.tran(f)  # comment if you want to test this modul
+        Moduł2.transform(f)  # comment if you want to test this modul
     elif file.endswith('.xlsx') and file in acceptableFormats:
 #        Moduł2.tranxlsx(file)
         f = pd.read_excel(f'{dropFolderPath}/{file}') #(f'file/{file}')
@@ -54,7 +54,7 @@ for file in dropFolder: #os.listdir('file'):
         print("After pickling Modul1")
         print(pd.read_pickle(cacheFile))
         print("Pickling read Modul1")
-        Moduł2.tran(f)  # comment if you want to test this modul
+        Moduł2.transform(f)  # comment if you want to test this modul
     else:
         os.remove(f'{dropFolderPath}/{file}') #(f'file/{file}')
 #    f.to_pickle(cacheFile)
@@ -64,7 +64,7 @@ for file in dropFolder: #os.listdir('file'):
 
 #    Moduł2.tran(f)#comment if you want to test this modul
 
-def prep() -> pd.DataFrame:
+def loadData() -> pd.DataFrame:
     while len(os.listdir(f'{conf["drop_folder"]}')) == 0:
         print("Nie ma pliku")
         time.sleep(1)
