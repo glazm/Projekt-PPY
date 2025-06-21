@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 import os
-import Moduł3
+#import Moduł3
 
 with open("config.json") as config:
     conf = json.load(config)
@@ -14,6 +14,28 @@ cacheFile = f'{conf["extent"]}'
 
 ##tran(cacheFile)
 
+print("Before pickling Modul2")
+print(pd.read_pickle(cacheFile))
+file = pd.read_pickle(cacheFile)
+for col in file.columns:
+    if 'internal' in col:
+        file = file.drop(col, axis=1)
+#    print(f.columns)
+file['Name'] = file['Name'].str.capitalize()
+file['Surname'] = file['Surname'].str.capitalize()
+#    print(f.head(10))
+file = file[file.eval("Name=='Stephen' & Surname=='King' | Publisher.str.contains('Penguin Random House|Random House',case=False)")]
+#    print(f.head(10))
+for col in file.columns:
+    file = file.dropna(axis=0,subset=[col], inplace=False)
+#    print(file.head(10))
+file.to_pickle(cacheFile)
+print("After pickling Modul2")
+print(pd.read_pickle(cacheFile))
+print("Pickling read Modul2")
+#    Moduł3.additional_data(file) #comment if you want to test this modul
+print(type(file))
+
 def transform(file) -> pd.DataFrame:
 #    f=[]
 #    if file.endswith('.csv'):
@@ -23,6 +45,8 @@ def transform(file) -> pd.DataFrame:
 #    f = pd.read_csv(f'file/{file}')
 #    print(file.head(10))
 #    print(file.columns)
+    print("Before pickling Modul2")
+    print(pd.read_pickle(cacheFile))
     for col in file.columns:
         if 'internal' in col:
             file = file.drop(col, axis=1)
@@ -39,7 +63,7 @@ def transform(file) -> pd.DataFrame:
     print("After pickling Modul2")
     print(pd.read_pickle(cacheFile))
     print("Pickling read Modul2")
-    Moduł3.additional_data(file) #comment if you want to test this modul
+#    Moduł3.additional_data(file) #comment if you want to test this modul
     print(type(file))
     return file
 #def trancsv(file):

@@ -6,7 +6,7 @@ import time
 
 from pandas import DataFrame
 
-import Moduł2 #comment if you want no duplicates
+#import Moduł2 #comment if you want no duplicates
 
 with open("config.json") as config:
     conf = json.load(config)
@@ -41,7 +41,7 @@ for file in dropFolder: #os.listdir('file'):
         print("After pickling Modul1")
         print(pd.read_pickle(cacheFile))
         print("Pickling read Modul1")
-        Moduł2.transform(f)  # comment if you want to test this modul
+#        Moduł2.transform(f)  # comment if you want to test this modul
     elif file.endswith('.xlsx') and file in acceptableFormats:
 #        Moduł2.tranxlsx(file)
         f = pd.read_excel(f'{dropFolderPath}/{file}') #(f'file/{file}')
@@ -54,7 +54,7 @@ for file in dropFolder: #os.listdir('file'):
         print("After pickling Modul1")
         print(pd.read_pickle(cacheFile))
         print("Pickling read Modul1")
-        Moduł2.transform(f)  # comment if you want to test this modul
+#        Moduł2.transform(f)  # comment if you want to test this modul
     else:
         os.remove(f'{dropFolderPath}/{file}') #(f'file/{file}')
 #    f.to_pickle(cacheFile)

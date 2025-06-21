@@ -54,9 +54,9 @@ def booksByAuthor():
     print(query)
     f=[]
     for index, row in ff.iterrows():
-        if row['Surname'].casefold() in query.casefold() and row['Name'].casefold() in query.casefold() :
+        if str(row['Surname']).casefold() in query.casefold() and str(row['Name'].casefold()) in query.casefold() :
             print(row['Title'])
-            f.append(row['Title'])
+            f.append(str(row['Title']))
     print(f)
     t = ', '.join(f)
 #    display(ppp.to_string())
@@ -75,7 +75,7 @@ def loadedBooks():
     f=[]
     for index, row in ff.iterrows():
         print(row['Title'])
-        f.append(row['Title'])
+        f.append(str(row['Title']))
     print(f)
     t = ', '.join(f)
 #    display(ppp.to_string())
@@ -95,10 +95,10 @@ def wordInTitle():
 #    stri = query.
     f=[]
     for index, row in ff.iterrows():
-        print(row['Title']+"<->"+query)
-        if query.casefold() in row['Title'].casefold():
+        print(str(row['Title'])+"<->"+query)
+        if query.casefold() in str(row['Title']).casefold():
             print(row['Title'])
-            f.append(row['Title'])
+            f.append(str(row['Title']))
     print(f)
     t = ', '.join(f)
 #    display(ppp.to_string())
