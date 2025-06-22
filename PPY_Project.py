@@ -6,23 +6,27 @@ from Moduł4 import my_api
 from Moduł5 import load
 from Moduł5 import save
 from flask import Flask
-import pandas as pd
+import threading
+global daf
 
-with open("config.json") as config:
-    conf = json.load(config)
+if __name__ == '__main__':
+    with open("config.json") as config:
+        conf = json.load(config)
 
 #bez sprawdzania czy jest plik
-pd = load(conf)
+    pd = load(conf)
 
-app = Flask(__name__)
-data = loadData(conf)
-transform = retransform(data)
+    app = Flask(__name__)
+#data = loadData(conf)
+    daf = loadData(conf)
+#dataT = threading.Thread(loadData, args=conf) #loadData(conf)
+    daf = retransform(daf)
+#transform = retransform(data)
 #print(transform)
-additional = readditional_data(transform,conf)
-my_api(app,additional)
-save(data,conf)
-#Dodatkowy data frame aby łączyć wyniki i odwoływać się do jednego pliku
-#PLus lupa dla wyczekiwania na nowe pliki
-if __name__ == '__main__':
+    daf = readditional_data(daf,conf)
+    my_api(app,daf)
+    save(daf,conf)
+#Petla dla wyczekiwania na nowe pliki i wielowątkowość
+#if __name__ == '__main__':
     app.run(debug=True)
 

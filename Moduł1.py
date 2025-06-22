@@ -2,6 +2,8 @@ import pandas as pd
 import os
 import time
 
+
+
 def loadData(conf) -> pd.DataFrame:
     config_json = conf
     while len(os.listdir(f'{config_json["drop_folder"]}')) == 0:
@@ -23,7 +25,6 @@ def loadData(conf) -> pd.DataFrame:
                 df = file_xlsx
         else:
             os.remove(f'{config_json["drop_folder"]}/{file}')
-
     return df
 
 
