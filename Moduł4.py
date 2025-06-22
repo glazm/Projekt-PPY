@@ -10,6 +10,7 @@ import pandas as pd
 #import Moduł2
 #import Moduł3
 #from Moduł3 import
+from Moduł1 import loadConfigData
 
 with open("config.json") as config:
     conf = json.load(config)
@@ -23,6 +24,8 @@ publisherUrl = f'{conf["getPublisherUrl"]}'
 authorIdUrl = f'{conf["getAuthorIdUrl"]}'
 authorBioUrl = f'{conf["getAuthorBioUrl"]}'
 
+config = loadConfigData()
+file = pd.read_pickle(cacheFile)
 
 ppp=pd.DataFrame
 app = Flask(__name__)  # Flask constructor
@@ -41,7 +44,11 @@ def booksByAuthor():
     print('Moduł4')
     print("===============")
 #    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
-    ff =pd.read_pickle(cacheFile)
+#    ff =pd.read_pickle(cacheFile)
+    fs =pd.read_pickle(cacheFile)
+    print(type(fs))
+    ff =file
+    print(type(ff))
     print(ff)
     print(ff['Name'])
     print(ff['Surname'])
@@ -143,5 +150,75 @@ def search():
 if __name__ == '__main__':
     app.run(debug=True)
 
-def l(file):
-    ppp = file
+def my_api(app,file):
+    @app.route('/booksByAuthor')
+    def booksByAuthor():
+        query = str(request.args.get('author'))
+        print("===============")
+        print('Moduł4')
+        print("===============")
+        #    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
+        ff = file
+        print(ff)
+        print(ff['Name'])
+        print(ff['Surname'])
+        #    print(ff['Publisher'])
+        #    print(ff['Author BIO'])
+        # tab = query.split(' ')
+
+        # stri = tab[0]
+        # print(tab)
+        print(query)
+        f = []
+        for index, row in ff.iterrows():
+            if str(row['Surname']).casefold() in query.casefold() and str(row['Name'].casefold()) in query.casefold():
+                print(row['Title'])
+                f.append(str(row['Title']))
+        print(f)
+        t = ', '.join(f)
+        #    display(ppp.to_string())
+        return f'Books written by author {query}: {t}'
+
+    #    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
+    @app.route('/loadedBooks')
+    def loadedBooks():
+        print("===============")
+        print('Moduł4')
+        print("===============")
+        #    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
+        ff = file
+        print(ff)
+        print(ff['Name'])
+        print(ff['Surname'])
+        f = []
+        for index, row in ff.iterrows():
+            print(row['Title'])
+            f.append(str(row['Title']))
+        print(f)
+        t = ', '.join(f)
+        #    display(ppp.to_string())
+        return f'Loaded books: {t}'
+
+    #    return render_template('simple.html',  tables=[ff.to_html(classes='data')], titles=ff.columns.values)
+    @app.route('/wordInTitle')
+    def wordInTitle():
+        query = str(request.args.get('word'))
+        print("===============")
+        print('Moduł4')
+        print("===============")
+        #    ff =Moduł3.additional_data(Moduł2.transform(Moduł1.loadData()))
+        ff = file
+        print(ff)
+        print(ff['Name'])
+        print(ff['Surname'])
+        #    stri = query.
+        f = []
+        for index, row in ff.iterrows():
+            print(str(row['Title']) + "<->" + query)
+            if query.casefold() in str(row['Title']).casefold():
+                print(row['Title'])
+                f.append(str(row['Title']))
+        print(f)
+        t = ', '.join(f)
+        #    display(ppp.to_string())
+        return f'Titles containing given word "{query}": {t}'
