@@ -13,5 +13,5 @@ def retransform(file,conf) -> pd.DataFrame:
     for col in file.columns:
         file = file.dropna(axis=0,subset=[col], inplace=False)
 #    serialize(file)#zapisywanie po każdej czynności, komentuje bo zapis będzie tylko na koniec w głównym pliku
-    print(type(file))
+#    print(type(file))
     return file

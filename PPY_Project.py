@@ -5,6 +5,7 @@ from Moduł3 import readditional_data
 from Moduł4 import my_api
 from Moduł5 import serialize
 from flask import Flask
+import pandas as pd
 
 with open("config.json") as config:
     conf = json.load(config)
@@ -15,9 +16,10 @@ data = loadData(conf)
 transform = retransform(data,conf)
 #print(transform)
 additional = readditional_data(transform,conf)
-#my_api(app,additional)
+my_api(app,additional)
 serialize(additional,conf)
 #Dodatkowy data frame aby łączyć wyniki i odwoływać się do jednego pliku
+#PLus lupa dla wyczekiwania na nowe pliki
 if __name__ == '__main__':
     app.run(debug=True)
 
