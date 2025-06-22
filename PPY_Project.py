@@ -13,10 +13,10 @@ with open("config.json") as config:
 app = Flask(__name__)
 data = loadData(conf)
 transform = retransform(data,conf)
-print(transform)
+#print(transform)
 additional = readditional_data(transform,conf)
-my_api(app,additional)
-serialize(transform,conf)
+#my_api(app,additional)
+serialize(additional,conf)
 #Dodatkowy data frame aby łączyć wyniki i odwoływać się do jednego pliku
 if __name__ == '__main__':
     app.run(debug=True)
