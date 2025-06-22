@@ -1,4 +1,7 @@
 import json
+import os
+
+
 from Moduł1 import loadData
 from Moduł2 import retransform
 from Moduł3 import readditional_data
@@ -13,8 +16,8 @@ if __name__ == '__main__':
     with open("config.json") as config:
         conf = json.load(config)
 
-#bez sprawdzania czy jest plik
-    pd = load(conf)
+    if len(os.listdir(f'{conf["extentCatalog"]}')) == 0:
+        pd = load(conf)
 
     app = Flask(__name__)
 #data = loadData(conf)
