@@ -1,22 +1,9 @@
-import json
-
 import pandas as pd
 import os
 import time
 
-from pandas import DataFrame
-
-#from Moduł5 import serialize
-#from PPY_Project import config
-
-def loadConfigData()->dict:
-    with open("config.json") as config:
-        conf = json.load(config)
-        print("Loaded config.json")
-    return conf
-
-def loadData() -> pd.DataFrame:
-    config_json = loadConfigData()
+def loadData(conf) -> pd.DataFrame:
+    config_json = conf
     while len(os.listdir(f'{config_json["drop_folder"]}')) == 0:
         print("Nie ma pliku")
         time.sleep(1)

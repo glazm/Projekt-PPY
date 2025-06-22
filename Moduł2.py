@@ -1,15 +1,7 @@
 import pandas as pd
-import json
-import os
-#import Moduł3
-from Moduł1 import loadConfigData
-from Moduł5 import serialize
-from PPY_Project import config
-from PPY_Project import loadConfigData
 
-#config = loadConfigData()
-
-def retransform(file) -> pd.DataFrame:
+def retransform(file,conf) -> pd.DataFrame:
+    config = conf
     print("Before pickling Modul2")
     print(pd.read_pickle(f'{config["extent"]}'))
     for col in file.columns:
