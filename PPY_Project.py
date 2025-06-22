@@ -10,18 +10,17 @@ import pandas as pd
 
 with open("config.json") as config:
     conf = json.load(config)
-    print("Loaded config.json")
 
 #bez sprawdzania czy jest plik
 pd = load(conf)
 
 app = Flask(__name__)
-#data = loadData(conf)
-#transform = retransform(data,conf)
+data = loadData(conf)
+transform = retransform(data)
 #print(transform)
-#additional = readditional_data(transform,conf)
-#my_api(app,additional)
-#save(data,conf)
+additional = readditional_data(transform,conf)
+my_api(app,additional)
+save(data,conf)
 #Dodatkowy data frame aby łączyć wyniki i odwoływać się do jednego pliku
 #PLus lupa dla wyczekiwania na nowe pliki
 if __name__ == '__main__':
