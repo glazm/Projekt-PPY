@@ -22,10 +22,10 @@ if __name__ == '__main__':
         daf = retransform(daf)
         daf = readditional_data(daf, conf)
         if pd.equals(daf):
-            print("Te saame dane")
+            my_api(app, pd)
         else:
-            print("Inne dane")
-        my_api(app, pd)
+            my_api(app, daf)
+            save(daf, conf)
         app.run(debug=True)
     else:
         daf = loadData(conf)
