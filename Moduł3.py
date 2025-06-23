@@ -18,7 +18,7 @@ def readditional_data(file,conf) -> pd.DataFrame:
             urldata = list(urldata[0].values())[1]
             file.at[index,'Publisher'] = urldata[0]
         except:
-            print(config['getPublisherUrl'])
+            print(f'{config["getPublisherUrl"]}' % (t,name))
             print("No such data")
         try:
             with urllib.request.urlopen(f'{config["getAuthorIdUrl"]}'% (t,name)) as url:
@@ -26,7 +26,7 @@ def readditional_data(file,conf) -> pd.DataFrame:
                 urldata = dict(data)
             authorID = (list((urldata['docs'][0]).values())[0])[0]
         except:
-            print(f'{config["getAuthorIdUrl"]}')
+            print(f'{config["getAuthorIdUrl"]}'% (t,name))
             print("No such data")
         try:
             with urllib.request.urlopen(f'{config["getAuthorBioUrl"]}'% (authorID) ) as url:
@@ -35,6 +35,6 @@ def readditional_data(file,conf) -> pd.DataFrame:
             file.at[index, 'Author BIO'] = urldata['bio']
         except:
             file.at[index, 'Author BIO'] = ''
-            print(f'{config["getAuthorBioUrl"]}')
+            print(f'{config["getAuthorBioUrl"]}'% (authorID))
             print("No such data")
     return file
