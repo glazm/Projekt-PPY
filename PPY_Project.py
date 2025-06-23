@@ -16,8 +16,15 @@ if __name__ == '__main__':
         conf = json.load(config)
     app = Flask(__name__)
 
-    if len(os.listdir(f'{conf["drop_folder"]}')) != 0 and len(os.listdir(f'{conf["extentCatalog"]}')) != 0:
+    if os.path.exists(f'{conf["extent"]}'):
         pd = load(conf)
+        daf = loadData(conf)
+        daf = retransform(daf)
+        daf = readditional_data(daf, conf)
+        if pd.equals(daf):
+            print("Te saame dane")
+        else:
+            print("Inne dane")
         my_api(app, pd)
         app.run(debug=True)
     else:

@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 
 def load(conf)-> pd.DataFrame:
@@ -6,3 +8,7 @@ def load(conf)-> pd.DataFrame:
 def save(data_frame,conf):
     config_json = conf
     data_frame.to_pickle(f'{config_json["extent"]}')
+#    readfile = os.listdir(f'{config_json["drop_folder"]}')
+#    with open("demofile.txt", "w") as f:
+#        f.write("Woops! I have deleted the content!")
+
