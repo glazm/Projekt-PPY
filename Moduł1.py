@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import time
 
-def loadData(conf) -> pd.DataFrame:
+def load_data(conf) -> pd.DataFrame:
     config_json = conf
     while len(os.listdir(f'{config_json["drop_folder"]}')) == 0:
         print("Nie ma pliku")

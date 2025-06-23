@@ -1,7 +1,7 @@
 import json
 import os
 
-from Moduł1 import loadData
+from Moduł1 import load_data
 from Moduł2 import retransform
 from Moduł3 import readditional_data
 from Moduł4 import my_api
@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     if os.path.exists(f'{conf["extent"]}'):
         pd = load(conf)
-        daf = loadData(conf)
+        daf = load_data(conf)
         daf = retransform(daf)
         daf = readditional_data(daf, conf)
         if pd.equals(daf):
@@ -28,7 +28,7 @@ if __name__ == '__main__':
             save(daf, conf)
         app.run(debug=True)
     else:
-        daf = loadData(conf)
+        daf = load_data(conf)
         daf = retransform(daf)
         daf = readditional_data(daf,conf)
         my_api(app,daf)

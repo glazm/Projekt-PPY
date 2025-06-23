@@ -3,7 +3,7 @@ from flask import request
 
 def my_api(app,file):
     @app.route('/booksByAuthor')
-    def booksByAuthor():
+    def books_by_author():
         query = str(request.args.get('author'))
         ff = file
         f = []
@@ -14,7 +14,7 @@ def my_api(app,file):
         return f'Books written by author {query}: {t}'
 
     @app.route('/loadedBooks')
-    def loadedBooks():
+    def loaded_books():
         ff = file
         f = []
         for index, row in ff.iterrows():
@@ -23,7 +23,7 @@ def my_api(app,file):
         return f'Loaded books: {t}'
 
     @app.route('/wordInTitle')
-    def wordInTitle():
+    def word_in_title():
         query = str(request.args.get('word'))
         ff = file
         f = []
